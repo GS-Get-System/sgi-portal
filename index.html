@@ -10,12 +10,40 @@
   <style>
     html, body { margin: 0; height: 100%; background: #000; }
     iframe { border: 0; width: 100%; height: 100%; display: block; }
+    .fallback { color: #E8E8E8; font-family: system-ui, sans-serif; text-align: center; padding: 2rem; }
+    .fallback a { color: #47B3FF; font-weight: 600; }
   </style>
 </head>
 <body>
-  <iframe
-    src="https://script.google.com/a/macros/getsystem.io/s/AKfycbyNBFtc2CQ7DDZ195pkPkuTjRzxkYJkmNum6OVVpkMupSiloURWcpIjuiIoOHaKa5-wAQ/exec"
-    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
-    referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <noscript>
+    <p class="fallback">
+      <a href="https://script.google.com/a/macros/getsystem.io/s/AKfycbyNBFtc2CQ7DDZ195pkPkuTjRzxkYJkmNum6OVVpkMupSiloURWcpIjuiIoOHaKa5-wAQ/exec">
+        Abrir Sistema de Gestión Integral GS
+      </a>
+    </p>
+  </noscript>
+  <script>
+    (function () {
+      var EXEC = 'https://script.google.com/a/macros/getsystem.io/s/AKfycbyNBFtc2CQ7DDZ195pkPkuTjRzxkYJkmNum6OVVpkMupSiloURWcpIjuiIoOHaKa5-wAQ/exec';
+
+      // En móvil el login de Google dentro de un iframe queda bloqueado por las
+      // cookies de terceros. En ese caso redirigimos directo al web app (login
+      // de primera parte). En desktop mantenemos el iframe para conservar la
+      // URL sgi.getsystem.io.
+      var ua = navigator.userAgent || '';
+      var isMobile = /Android|iPhone|iPad|iPod|Mobile|Silk|Kindle|BlackBerry|Opera Mini|IEMobile|webOS/i.test(ua);
+
+      if (isMobile) {
+        window.location.replace(EXEC);
+        return;
+      }
+
+      var f = document.createElement('iframe');
+      f.src = EXEC;
+      f.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation');
+      f.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      document.body.appendChild(f);
+    })();
+  </script>
 </body>
 </html>
