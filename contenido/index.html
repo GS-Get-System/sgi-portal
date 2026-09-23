@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Gestión de Contenido | GS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body{font:15px/1.5 -apple-system,sans-serif;max-width:640px;margin:60px auto;padding:0 20px;color:#1f2937}</style>
+</head><body>
+<h2>Gestión de Contenido — en migración</h2>
+<p>Esta ruta va a servir la app cuando termine la migración a Worker + D1 (fase F5).
+Mientras tanto, la app sigue en el portal de siempre.</p>
+<p id="estado">Probando el circuito…</p>
+<script>
+fetch('/api', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'app.ping'})})
+  .then(r => r.json()).then(d => { document.getElementById('estado').textContent = d.ok ? 'Circuito vivo: ' + JSON.stringify(d.data) : 'Proxy responde, Worker dice: ' + d.error; })
+  .catch(e => { document.getElementById('estado').textContent = 'Sin circuito: ' + e; });
+</script>
+</body></html>
